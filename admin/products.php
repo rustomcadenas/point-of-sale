@@ -33,7 +33,8 @@
                         </div>
                         <div class="col-lg-6 mt-10">
                             <button type="button" class="btn btn-primary mr-10" @click="productModal = true"> Add Product</button>
-                            <button type="button" class="btn btn-primary" @click="categoryModal=true">Add Category</button>
+                            <button type="button" class="btn btn-primary mr-10" @click="openCategoryModal">Category</button>
+                            <button type="button" class="btn btn-primary">Supplier</button>
                         </div>
                     </div>
                     <!-- /.row -->
@@ -88,18 +89,32 @@
 <?php   include 'links/bottomLinks.php'; ?>
 
 <script>
-    var application = new Vue({
+    var products = new Vue({
         el: "#products",
         data:{
             pageHeader: "Products",
             productModal: false,
             modalActionBtn: "Save",
             modalTitle: "Add New Product",
-            categoryModal: false
+            categoryModal: false,
+            message: ""
 
         },
         methods:{
-
+            openCategoryModal: function(){
+                products.txt_productCategory = '';
+                products.categoryModal = true;
+            },
+            addCategory: function(){
+                axios.post("action.php", {
+                    action: 'addCategory',
+                    productCategory: products.txt_productCategory
+                }).then(function(response){
+                    products.message = response.data.message;
+                    
+                });
+            }
+            
         },
         created: function(){
 
