@@ -29,12 +29,12 @@
 						<div class="col-sm-6 mt-10">
 							<label>Category: </label>
 							<div class="form-group input-group">
-                                                    <input type="text" class="form-control">
-                                                    <span class="input-group-btn">
-                                                        <button class="btn btn-default" type="button" @click="categoryModal=true"><i class="fa fa-plus"></i>
-                                                        </button>
-                                                    </span>
-                                                </div>							 
+								<input type="text" class="form-control">
+								<span class="input-group-btn">
+									<button class="btn btn-default" type="button" @click="categoryModal=true"><i class="fa fa-plus"></i>
+									</button>
+								</span>
+							</div>							 
 						</div>
 						<div class="col-sm-12 mt-10">
 							<label>Description: </label>
@@ -43,7 +43,15 @@
 					</div>
 					<div class="row">
 						<div class="col-sm-4 mt-10">
-							<label>Price: </label>
+							<label>Original Price: </label>
+								<div class="form-group input-group">
+									<span class="input-group-addon">₱</span>
+									<input type="text" class="form-control">
+									<span class="input-group-addon">.00</span>
+								</div>						 
+						</div>
+						<div class="col-sm-4 mt-10">
+							<label>Selling Price: </label>
 								<div class="form-group input-group">
 									<span class="input-group-addon">₱</span>
 									<input type="text" class="form-control">
@@ -75,29 +83,74 @@
 				<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" @click="categoryModal=false"> &times;</button>
-					<h4 class="modal-title color-blue">Add New Category</h4>
+					<h4 class="modal-title color-blue">Product Category</h4>
 				</div>
 				<div class="modal-body">
 
 					<div class="row"> 
 						<div class="col-sm-12 mt-10">
-							<label>Category: </label>
-							<input type="text" class="form-control" v-model="txt_productCategory">							 
+							<label>Add New Category: </label>
+							<div class="form-group input-group">
+								<input type="text" class="form-control">
+								<span class="input-group-btn">
+									<button class="btn btn-primary" type="button">	<i class="fa fa-plus"></i> Add
+									</button>
+								</span>
+                            </div>						 
 						</div>
 					</div>
 					<hr>
 					<div class="row"> 						
 						<div class="col-sm-12 mt-10">
-							<label for="">List of Category</label>
-							<select class="form-control" name="" id="">
-								<option value="">1</option>
-							</select>
+						<div class="table-responsive table-bordered height-150 fixed-header">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+													<th>Product Category Name</th> 
+													<th>Action</th>                                                    
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>1</td>
+													<td>Mark</td>
+													<th><button type="button" class="btn btn-danger btn-xs">DELETE</button></th>                                                      
+                                                </tr>
+                                                <tr>
+                                                    <td>2</td>
+													<td>Jacob</td> 
+													<th><button type="button" class="btn btn-danger btn-xs">DELETE</button></th>                                                    
+                                                </tr>
+                                                <tr>
+                                                    <td>3</td>
+													<td>Larry</td>   
+													<th><button type="button" class="btn btn-danger btn-xs">DELETE</button></th>                                                   
+												</tr>
+												<tr>
+                                                    <td>3</td>
+													<td>Larry</td> 
+													<th><button type="button" class="btn btn-danger btn-xs">DELETE</button></th>                                                    
+												</tr>
+												<tr>
+                                                    <td>3</td>
+													<td>Larry</td>   
+													<th><button type="button" class="btn btn-danger btn-xs">DELETE</button></th>                                                  
+												</tr>
+												<tr>
+                                                    <td>3</td>
+													<td>Larry</td> 
+													<th><button type="button" class="btn btn-danger btn-xs">DELETE</button></th>                                                     
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
 						</div>	
 					</div>
 					<!-- /.row -->
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-primary" @click="addCategory"> Save </button>
+				 
 				</div>
 				</div>
 			</div>		 
