@@ -7,17 +7,16 @@
     <title>Products</title>  
 </head>
 <body>
-    <div id="wrapper">
-        <!-- Navbar -->
-<?php include 'layouts/navbar.php';?>   
-        <!-- Page Content -->
-    <div id="products">
+<div id="products">
+    <div id="wrapper">       
+<?php include 'layouts/navbar.php';?>     
         <div id="page-wrapper">
+        
                 <div class="container-fluid">
                     <!-- PAGE HEADER -->
                     <div class="row">
                         <div class="col-lg-12">
-                            <h1 class="page-header">Products</h1>
+                            <h1 class="page-header">{{ pageHeader }}</h1>
                         </div>                     
                     </div>
                     <!-- /.row -->
@@ -33,7 +32,8 @@
                             </div>
                         </div>
                         <div class="col-lg-6 mt-10">
-                            <button type="button" class="btn btn-primary">Add Products</button>
+                            <button type="button" class="btn btn-primary mr-10" @click="productModal = true"> Add Product</button>
+                            <button type="button" class="btn btn-primary" @click="categoryModal=true">Add Category</button>
                         </div>
                     </div>
                     <!-- /.row -->
@@ -80,10 +80,30 @@
             <!-- /#page-wrapper -->
         </div>
         <!-- /#wrapper --> 
+        <?php include 'layouts/modal.php'; ?>   
     </div>  
-    <!-- /#Products -->
-
-<?php include 'layouts/modal.php'; ?>
+    <!-- /#Products -->    
 </body>
 </html>
 <?php   include 'links/bottomLinks.php'; ?>
+
+<script>
+    var application = new Vue({
+        el: "#products",
+        data:{
+            pageHeader: "Products",
+            productModal: false,
+            modalActionBtn: "Save",
+            modalTitle: "Add New Product",
+            categoryModal: false
+
+        },
+        methods:{
+
+        },
+        created: function(){
+
+        }
+    });
+
+</script>
