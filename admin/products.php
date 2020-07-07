@@ -87,38 +87,85 @@
 </body>
 </html>
 <?php   include 'links/bottomLinks.php'; ?>
-
 <script>
-    var products = new Vue({
+     
+     var products = new Vue({
         el: "#products",
-        data:{
-            pageHeader: "Products",
+        data:{           
             productModal: false,
-            modalActionBtn: "Save",
-            modalTitle: "Add New Product",
             categoryModal: false,
-            message: ""
-
+            alrt_successCategory: false,
+            alrt_errorCategory: false,
+            allCategory: '',
+            txt_productCategory: '',
+            pageHeader: "Products",
+            modalActionBtn: "Save",
+            modalTitle: "Add New Product",            
+            alertMessage: ""
         },
         methods:{
+            fetchAllCategory: function(){
+                axios.post('actions/products.php', {
+                    action: 'act_fetchAllCategory'
+                }).then(function(response){
+                    products.allCategory = response.data;                    
+                });
+            },
+            close_productModal: function(){
+                products.productModal = false;
+            },
+            close_categoryModal: function(){
+                products.alrt_successCategory = false;
+                products.alrt_errorCategory = false;
+                products.categoryModal = false;
+            },
             openCategoryModal: function(){
                 products.txt_productCategory = '';
                 products.categoryModal = true;
             },
             addCategory: function(){
-                axios.post("action.php", {
+                axios.post("actions/products.php", {
                     action: 'addCategory',
                     productCategory: products.txt_productCategory
                 }).then(function(response){
-                    products.message = response.data.message;
-                    
+                    if(response.data.type == 'success'){
+                        products.alrt_successCategory = true;
+                        products.alrt_errorCategory = false;
+                    }else{
+                        products.alrt_successCategory = false;
+                        products.alrt_errorCategory = true;
+                    }
+                    products.alertMessage = response.data.message;                     
+                    products.fetchAllCategory(); 
+                    products.txt_productCategory = '';                 
                 });
+            },
+            deleteCategory: function(id){
+               if (confirm("Are you sure you want to delete? ")){
+                   axios.post("actions/products.php", {
+                        action: 'act_deleteCategory',
+                        id: id
+                   }).then (function(response){
+                    if(response.data.type == "success"){
+                        products.alrt_successCategory = true;
+                        products.alrt_errorCategory = false;
+                    }else{
+                        products.alrt_successCategory = false;
+                        products.alrt_errorCategory = true;
+                    }
+                    products.alertMessage = response.data.message;                    
+                    products.fetchAllCategory();                                     
+                   });
+               }
             }
             
         },
         created: function(){
-
+            this.fetchAllCategory();
         }
     });
 
+ 
+
 </script>
+
