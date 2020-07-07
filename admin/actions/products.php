@@ -21,7 +21,7 @@ if($received_data){
         $stmt = $connect -> prepare($query);
         if($stmt -> execute()){
             $output = array(
-                "message" => "category deleted.",
+                "message" => "Category Successfully Deleted.",
                 "type" => "success"
             );
         }else{

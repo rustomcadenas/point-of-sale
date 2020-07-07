@@ -32,9 +32,9 @@
                             </div>
                         </div>
                         <div class="col-lg-6 mt-10">
-                            <button type="button" class="btn btn-primary mr-10" @click="productModal = true"> Add Product</button>
-                            <button type="button" class="btn btn-primary mr-10" @click="openCategoryModal">Category</button>
-                            <button type="button" class="btn btn-primary">Supplier</button>
+                            <button type="button" class="btn btn-primary mr-10" @click="open_productModal"> Add Product </button>
+                            <button type="button" class="btn btn-primary mr-10" @click="open_CategoryModal"> Category </button>
+                            <button type="button" class="btn btn-primary"> Supplier </button>
                         </div>
                     </div>
                     <!-- /.row -->
@@ -57,19 +57,7 @@
                                                         <td>Mark</td>
                                                         <td>Otto</td>
                                                         <td>@mdo</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>2</td>
-                                                        <td>Jacob</td>
-                                                        <td>Thornton</td>
-                                                        <td>@fat</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>3</td>
-                                                        <td>Larry</td>
-                                                        <td>the Bird</td>
-                                                        <td>@twitter</td>
-                                                    </tr>
+                                                    </tr>                                                   
                                                 </tbody>
                                             </table>
                                         </div>
@@ -96,8 +84,10 @@
             categoryModal: false,
             alrt_successCategory: false,
             alrt_errorCategory: false,
+            drpdwn_categoryModal: false,
             allCategory: '',
-            txt_productCategory: '',
+            drpdwn_allCategory: '',  
+            txt_productCategory: '',      
             pageHeader: "Products",
             modalActionBtn: "Save",
             modalTitle: "Add New Product",            
@@ -113,22 +103,41 @@
             },
             close_productModal: function(){
                 products.productModal = false;
+                products.alrt_successCategory = false;
+                products.alrt_errorCategory = false;
             },
             close_categoryModal: function(){
                 products.alrt_successCategory = false;
                 products.alrt_errorCategory = false;
                 products.categoryModal = false;
             },
-            openCategoryModal: function(){
+            open_CategoryModal: function(){
                 products.txt_productCategory = '';
                 products.categoryModal = true;
             },
+            open_productModal: function(){
+                products.productModal = true;
+            },
+            open_drpdwn_categoryModal: function(){
+                products.drpdwn_categoryModal = true;
+                products.alrt_successCategory = false;
+                products.alrt_errorCategory = false;
+            },
+            close_drpdwn_categoryModal: function(){
+                products.drpdwn_categoryModal = false;
+            },
             addCategory: function(){
-                axios.post("actions/products.php", {
+                if(products.txt_productCategory == ''){
+                    products.alrt_successCategory = false;
+                    products.alrt_errorCategory = true;
+                    products.alertMessage = "Empty Fields!";
+                }else{
+                    axios.post("actions/products.php", {
                     action: 'addCategory',
                     productCategory: products.txt_productCategory
-                }).then(function(response){
+                    }).then(function(response){
                     if(response.data.type == 'success'){
+                        products.drpdwn_categoryModal = false;
                         products.alrt_successCategory = true;
                         products.alrt_errorCategory = false;
                     }else{
@@ -138,7 +147,9 @@
                     products.alertMessage = response.data.message;                     
                     products.fetchAllCategory(); 
                     products.txt_productCategory = '';                 
-                });
+                    });
+                }
+           
             },
             deleteCategory: function(id){
                if (confirm("Are you sure you want to delete? ")){
