@@ -109,10 +109,23 @@
 								</span>
                             </div>						 
 						</div>
-					</div>					
+					</div>		
+					<hr>
+					<div class="row">
+						<div class="col-sm-6 mt-10">
+							<div class="input-group custom-search-form">
+								<input type="text" class="form-control" placeholder="Search Category...">
+									<span class="input-group-btn">
+										<button class="btn btn-primary" type="button">
+											<i class="fa fa-search"></i>
+										</button>
+									</span>
+							</div>
+						</div>
+					</div>			
 					<div class="row"> 						
-						<div class="col-sm-12 mt-10">
-						<div class="table-responsive table-bordered height-150 fixed-header">
+						<div class="col-sm-12 mt-10">						
+						<div class="table-responsive table-bordered height-150">
                                         <table class="table">
                                             <thead>
                                                 <tr>                                                    
